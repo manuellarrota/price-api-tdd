@@ -1,0 +1,15 @@
+# Dev configuration
+server:
+  port: 8090
+security:
+  basic:
+    enabled: false
+  ignored:
+    - /**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
