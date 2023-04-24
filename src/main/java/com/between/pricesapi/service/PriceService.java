@@ -6,7 +6,7 @@ import java.util.Date;
 
 public interface PriceService {
 
-    Price findPriceByDateAndBrandAndProduct(
+    Price getPriceByDateAndBrandAndProduct(
             Date applicationDate,
             Long productId,
             Integer brandId);

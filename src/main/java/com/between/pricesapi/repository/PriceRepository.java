@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Repository
 public interface PriceRepository {
-    Price findPriceByDateAndBrandAndProduct(
+    Price getPriceByDateAndBrandAndProduct(
             @Param("applicationDate") Date applicationDate,
             @Param("productId") Long productId,
             @Param("brandId") Integer brandId);

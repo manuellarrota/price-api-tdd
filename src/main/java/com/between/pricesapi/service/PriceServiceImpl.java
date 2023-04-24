@@ -7,7 +7,7 @@ import java.util.Date;
 @Service
 public class PriceServiceImpl implements PriceService {
     @Override
-    public Price findPriceByDateAndBrandAndProduct(Date applicationDate, Long productId, Integer brandId) {
+    public Price getPriceByDateAndBrandAndProduct(Date applicationDate, Long productId, Integer brandId) {
         return null;
     }
 }
