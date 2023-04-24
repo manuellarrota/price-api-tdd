@@ -13,8 +13,18 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>prices-api</name>
 	<description>Api rest expone precios a partir de una consulta definida.</description>
+	<developers>
+		<developer>
+			<id>manuellarrota</id>
+			<name>Manuel Larrota</name>
+			<email>manuel.larrota@gmail.com</email>
+		</developer>
+	</developers>
 	<properties>
 		<java.version>17</java.version>
+		<!-- Versions of dependencies and plugins -->
+		<io.springfox.version>3.0.0</io.springfox.version>
+		<maven-model.version>3.8.5</maven-model.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,6 +54,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!--Swagger-->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 	</dependencies>
 

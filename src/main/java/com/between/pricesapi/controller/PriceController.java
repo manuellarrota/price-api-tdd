@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 @RestController
-@RequestMapping("prices")
+@RequestMapping("getprice")
 @Slf4j
 public class PriceController {
     private final PriceService priceService;
@@ -29,9 +29,11 @@ public class PriceController {
         this.priceService = priceService;
     }
 
-
     @PostMapping
     public ResponseEntity<PriceResponseDto> getPriceByDateAndBrandAndProduct(@RequestBody PriceRequestDto priceRequestDto ) {
+        if(!validate(priceRequestDto)){
+            return new ResponseEntity<>(new PriceResponseDto(), HttpStatus.BAD_REQUEST);
+        }
         Date applicationDate;
         try {
             applicationDate =  df.parse(priceRequestDto.getApplicationDate());
@@ -42,6 +44,10 @@ public class PriceController {
          Price price = priceService.getPriceByDateAndBrandAndProduct(
                  applicationDate, priceRequestDto.getProductId(), priceRequestDto.getBrandId()
          );
+        if (price == null){
+            log.info("Not found by date: " + applicationDate);
+            return new ResponseEntity<>(new PriceResponseDto(), HttpStatus.OK);
+        }
         PriceResponseDto priceResponseDto = new PriceResponseDto(
                 price.getProductId(),
                 price.getId(),
@@ -49,9 +55,26 @@ public class PriceController {
                 price.getBrandId(),
                 applicationDate
         );
+
         log.info("Price response found : " + priceResponseDto);
         return new ResponseEntity<>(
                 priceResponseDto
                 , HttpStatus.OK);
+    }
+
+    boolean validate(PriceRequestDto priceRequestDto){
+        if(priceRequestDto.getBrandId() == null || priceRequestDto.getBrandId() == 0 ){
+            log.error("brand is empty. ");
+            return false;
+        }
+        if(priceRequestDto.getProductId() == null || priceRequestDto.getProductId() == 0 ){
+            log.error("product is empty. ");
+            return false;
+        }
+        if(priceRequestDto.getApplicationDate() == null || priceRequestDto.getApplicationDate().isEmpty() ){
+            log.error("date is empty. ");
+            return false;
+        }
+        return true;
     }
 }
