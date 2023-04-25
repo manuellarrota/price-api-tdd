@@ -3,6 +3,8 @@
 Prices spring boot api permite a partir de una fecha, la marca y el identificador del producto determinar el precio final 
 del producto en stock segun el rango de fechas y prioridad determinados para el producto.
 
+![img_2.png](documents/swagger_home.png)
+
 ## Tecnologias
 
 - Spring boot, como framework base de desarollo.
@@ -20,6 +22,9 @@ del producto en stock segun el rango de fechas y prioridad determinados para el 
 - repository: abstraccion de acceso a datos.
 - data.sql: contiene insert inicial para pruebas.
 - test: pruebas unitarias para capas.
+
+![img_1.png](documents/sequence_diagram.png)
+
 
 ## Dockerizando
 
@@ -39,6 +44,4 @@ Una vez se este ejecutado el servicio se debe visualizar la url de swagger en el
 
 ![img.png](documents/log.png)
 
-![img_1.png](documents/sequence_diagram.png)
 
-![img_2.png](documents/swagger_home.png)
