@@ -2,14 +2,11 @@ package com.between.pricesapi.dto;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
-import java.util.Map;
-
 @Slf4j
 public class ErrorResponseDto {
     private final Integer status;
     private final String timeStamp;
-    private String message;
+    private final String message;
     private final String trace;
 
 

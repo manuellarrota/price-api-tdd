@@ -5,7 +5,6 @@ import com.between.pricesapi.dto.PriceResponseDto;
 import com.between.pricesapi.model.Price;
 import com.between.pricesapi.service.PriceService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
