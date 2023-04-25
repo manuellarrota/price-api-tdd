@@ -39,4 +39,6 @@ Una vez se este ejecutado el servicio se debe visualizar la url de swagger en el
 
 ![img.png](documents/log.png)
 
-![img_1.png](documents/swagger.png)
+![img_1.png](documents/sequence_diagram.png)
+
+![img_2.png](documents/swagger_home.png)
