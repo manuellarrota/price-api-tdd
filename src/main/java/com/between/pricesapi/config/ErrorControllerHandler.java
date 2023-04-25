@@ -15,36 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
 @ResponseBody
 @Slf4j
-public class ErrorControllerHandler {
-    @Autowired
-    private ErrorAttributes errorAttributes;
+public class ErrorControllerHandler implements ErrorAttributes {
     @Autowired
     private Environment environment;
 
-
     @RequestMapping(value = "/error")
-    public ErrorResponseDto error(WebRequest webRequest, HttpServletResponse response) {
-        return new ErrorResponseDto(
-                response.getStatus(),
-                getErrorAttributes(webRequest),
-                String.join("", environment.getActiveProfiles()));
-    }
-
-    @ExceptionHandler({ Exception.class})
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<ErrorResponseDto> runTimeExceptionHandle(RuntimeException e, WebRequest webRequest) {
         return new ResponseEntity<>(
                 new ErrorResponseDto(
                         HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        getErrorAttributes(webRequest),
-                        String.join("", environment.getActiveProfiles())),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                        new Date().toString(),
+                        e.getMessage(),
+                        e.getStackTrace().toString()),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
-    private Map<String, Object> getErrorAttributes(WebRequest webRequest) {
-        return errorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
+
+    @Override
+    public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
+        Map<String, Object> errorAttributes = new HashMap<>();
+        errorAttributes.put("timestamp", new Date());
+        errorAttributes.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        errorAttributes.put("error", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        errorAttributes.put("message", "An error occurred");
+        errorAttributes.put("path", webRequest.getDescription(false).replace("uri=", ""));
+        return errorAttributes;
+    }
+
+    @Override
+    public Throwable getError(WebRequest webRequest) {
+        return null;
     }
 }

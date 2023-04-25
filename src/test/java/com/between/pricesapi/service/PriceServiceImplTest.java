@@ -68,7 +68,7 @@ public class PriceServiceImplTest {
     }
 
     @Test
-    void when_some_arguments_are_empty_date_then_return_price_ok(){
+    void when_some_arguments_are_empty_date_then_return_price_null(){
         String applicationDateString = "2020-06-14 10:00:00";
         Date applicationDate;
         try {

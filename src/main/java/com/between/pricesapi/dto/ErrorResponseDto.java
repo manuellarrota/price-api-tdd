@@ -11,20 +11,13 @@ public class ErrorResponseDto {
     private final String timeStamp;
     private String message;
     private final String trace;
-    private static final  String TRACE_WORD = "trace";
 
-    public ErrorResponseDto(Integer status, Map<String, Object> errorAttributes, String profile) {
+
+    public ErrorResponseDto(Integer status, String timeStamp, String message, String trace) {
         this.status = status;
-        message = errorAttributes.get("message") + "";
-        timeStamp = (String) (errorAttributes.get("timeStamp") == null ? new Date().toString() : errorAttributes.get("timeStamp"));
-        if (profile.compareTo("production") == 0) {
-            message = "Sorry will be fixed soon!!.";
-        }
-        trace = (String) (errorAttributes.get(TRACE_WORD) == null ? "Resource Not Available" : errorAttributes.get(TRACE_WORD));
-        if (message.isEmpty()) {
-            message = trace.substring(0, trace.indexOf("at "));
-        }
-        log.error("Trace: " + errorAttributes.get(TRACE_WORD));
+        this.timeStamp = timeStamp;
+        this.message = message;
+        this.trace = trace;
     }
 
     @Override

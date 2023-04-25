@@ -69,12 +69,12 @@ public class PriceControllerTest {
         Assertions.assertThat(priceResponseDtoResponseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
     @Test
-    void when_all_arguments_ok_but_date_dont_match_then_return_response_empty_ok() {
+    void when_all_arguments_ok_but_date_dont_match_then_return_response_empty_not_found() {
         String applicationDateString = "2020-00-14 10:00:00";
         PriceRequestDto priceRequestDto = new PriceRequestDto(applicationDateString, productId, brandId);
         ResponseEntity<PriceResponseDto> priceResponseDtoResponseEntity = priceController.getPriceByDateAndBrandAndProduct(
                 priceRequestDto);
-        Assertions.assertThat(priceResponseDtoResponseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(priceResponseDtoResponseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
     @Test
     void when_date_not_ok_then_return_bad_request() {
@@ -94,7 +94,7 @@ public class PriceControllerTest {
         Assertions.assertThat(priceResponseDtoResponseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
     @Test
-    void when_product_dont_match_then_return_bad_request() {
+    void when_product_is_invalid_then_return_bad_request() {
         String applicationDateString = "2020-00-14 10:00:00";
         PriceRequestDto priceRequestDto = new PriceRequestDto(applicationDateString, 0L, brandId);
         ResponseEntity<PriceResponseDto> priceResponseDtoResponseEntity = priceController.getPriceByDateAndBrandAndProduct(
@@ -102,7 +102,7 @@ public class PriceControllerTest {
         Assertions.assertThat(priceResponseDtoResponseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
     @Test
-    void when_brand_dont_match_then_return_bad_request() {
+    void when_brand_is_invalid_then_return_bad_request() {
         PriceRequestDto priceRequestDto = new PriceRequestDto(applicationDateString, productId, 0);
         ResponseEntity<PriceResponseDto> priceResponseDtoResponseEntity = priceController.getPriceByDateAndBrandAndProduct(priceRequestDto);
         Assertions.assertThat(priceResponseDtoResponseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
