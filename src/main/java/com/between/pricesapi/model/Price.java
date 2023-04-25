@@ -3,7 +3,6 @@ package com.between.pricesapi.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import java.util.Date;
 import java.util.Objects;
@@ -29,10 +28,10 @@ public class Price {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()   )
+            return false;
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Price price = (Price) o;
         return id != null && Objects.equals(id, price.id);
     }
-
 }
